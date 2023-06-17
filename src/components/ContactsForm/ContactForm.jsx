@@ -52,9 +52,15 @@ const ContactForm = () => {
         name="phone"
         className={style.input}
         placeholder="Add a number"
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        pattern="[0-9+\-()\s]+"
         value={phone}
-        onChange={event => setNumber(event.target.value)}
+        onChange={event => {
+          const sanitizedValue = event.target.value.replace(
+            /[^0-9+\-()\s]/g,
+            ''
+          );
+          setNumber(sanitizedValue);
+        }}
       />
 
       <button type="submit" className={style.btn}>
